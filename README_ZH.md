@@ -1,4 +1,4 @@
-# 恋爱与选举与巧克力
+# 恋爱与选举与巧克力（恋と選択とチョコレート）资源提取
 
 ## 文件结构
 
@@ -7,13 +7,23 @@
 
 ## 使用方法
 
-1. 确保已安装 .NET SDK。
+1. 确保已安装 .NET SDK（.NET 6.0）。
 2. 打开命令行工具，导航到 `Decrypt` 文件夹。
-3. 执行以下命令以编译和运行解密工具
+3. 执行`dotnet build`命令以编译工具，编译的二进制可以在`bin\`文件夹下找到。
+
+## 运行
+
+- 查看资源文件中所有信息
 
 ```bash
-dotnet build
-dotnet run
+./Decrype.exe -l <dat_file>
+```
+
+- 提取所有文件到指定目录
+
+```bash
+# 确保<output_dir>存在
+./Decrypt -e <dat_file_path> -d <output_dir>
 ```
 
 ## 注意事项

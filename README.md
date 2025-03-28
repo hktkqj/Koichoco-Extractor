@@ -1,4 +1,4 @@
-# Koichoco extractor
+# Koichoco (恋と選択とチョコレート) extractor
 
 ## Project Overview
 
@@ -9,15 +9,25 @@ This project is designed to handle the decryption of game data for "Koi to Senky
 - **Decrypt**: Contains decryption-related code and tools.
 - **README_EN.md**: This project documentation in English.
 
-## Usage Instructions
+## Compile Instructions
 
-1. Ensure that .NET SDK (.NET 6.0+) is installed.
+1. Ensure that .NET SDK (.NET 6.0) is installed.
 2. Open a command-line tool and navigate to the `Decrypt` folder.
-3. Run the following commands to build and execute the decryption tool:
+3. Run `dotnet build` to build and execute the decryption tool, then run executable from `bin\` folder.
+
+## Run
+
+- To list all file entry from .dat file:
 
 ```bash
-dotnet build
-dotnet run
+./Decrype.exe -l <dat_file>
+```
+
+- To extract file to specific folder:
+
+```bash
+# Create <output_dir> before extract
+./Decrypt -e <dat_file_path> -d <output_dir>
 ```
 
 ## Notes
