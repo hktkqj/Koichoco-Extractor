@@ -1,19 +1,57 @@
 using System.IO;
+using System.Threading.Tasks;
+using SkiaSharp;
 
 namespace Decrypt
 {
     class Program
     {
+        static void Combine(string IncludePath)
+        {
+            var CgCombine = new CgCombine(IncludePath);
+            var Counter = 0;
+            var FailedEntry = new Dictionary<string, List<string>>();
+            IncludePath = Path.Combine(IncludePath, "CombinedCG");
+            if (!Directory.Exists(IncludePath))
+            {
+                Directory.CreateDirectory(IncludePath);
+            }
+            Parallel.ForEach(CgCombine.CgList, cg =>
+            {
+                var exportFilename = cg.Key;
+                Console.WriteLine($"Combining {exportFilename}({cg.Value.Count} files)...{Counter}/{CgCombine.CgList.Count}");
+                var BitmapData = CgCombine.Combiner(cg.Value);
+                if (BitmapData != null)
+                {
+                    Counter++;
+                    var outputPath = Path.Combine(IncludePath, exportFilename);
+                    using var outputStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write);
+                    BitmapData.Encode(outputStream, SKEncodedImageFormat.Png, 100);
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to combine {exportFilename}.");
+                    FailedEntry.Add(exportFilename, cg.Value);
+                }
+            });
+            Console.WriteLine($"Total {Counter} of {CgCombine.CgList.Count} CGs combined, saving to {IncludePath}/.");
+            Console.WriteLine($"Failed to combine {FailedEntry.Count} CGs:");
+            foreach (var entry in FailedEntry)
+            {
+                Console.WriteLine($"  Failed to combine {entry.Key} from {string.Join(", ", entry.Value)}.");
+            }
+        }
         static void Main(string[] args)
         {
             if (args.Length == 0 || args.Length > 5)
             {
                 Console.WriteLine("Usage: ");
-                Console.WriteLine("       decrypt.exe -e <dat_file> -d <output_dir>");
-                Console.WriteLine("       decrypt.exe -l <dat_file>");
+                Console.WriteLine("       decrypt.exe -e <dat_file> -d <dir> // Extract files from dat file.");
+                Console.WriteLine("       decrypt.exe -l <dat_file>          // List files in dat file.");
+                Console.WriteLine("       decrypt.exe -c <dir>               // Make sure system.dat, f_graphics.dat, ");
+                Console.WriteLine("                                             graphics.dat are extracted to same folder.");
                 return;
             }
-
             string datFile;
             string outputDir = "";
             bool showOnly;
@@ -27,6 +65,12 @@ namespace Decrypt
                 showOnly = false;
                 datFile = args[1];
                 outputDir = args[3];
+            }
+            else if (args[0] == "-c" && args.Length == 2)
+            {
+                outputDir = args[1];
+                Combine(outputDir);
+                return;
             }
             else
             {

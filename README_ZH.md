@@ -9,7 +9,8 @@
 
 1. 确保已安装 .NET SDK（.NET 6.0）。
 2. 打开命令行工具，导航到 `Decrypt` 文件夹。
-3. 执行`dotnet build`命令以编译工具，编译的二进制可以在`bin\`文件夹下找到。
+3. 执行`dotnet add package SkiaSharp`来通过`NuGet`安装依赖的图形库。
+4. 执行`dotnet build`命令以编译工具，编译的二进制可以在`bin\`文件夹下找到。
 
 ## 运行
 
@@ -24,6 +25,13 @@
 ```bash
 # 确保<output_dir>存在
 ./Decrypt -e <dat_file_path> -d <output_dir>
+```
+
+- 合并所有CG
+
+```bash
+# 确保已将system.dat, f_graphics.dat和graphics.dat提取至 <output_dir> 中
+./Decrypt -c <output_dir>
 ```
 
 ## 注意事项

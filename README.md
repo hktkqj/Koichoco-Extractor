@@ -13,7 +13,8 @@ This project is designed to handle the decryption of game data for "Koi to Senky
 
 1. Ensure that .NET SDK (.NET 6.0) is installed.
 2. Open a command-line tool and navigate to the `Decrypt` folder.
-3. Run `dotnet build` to build and execute the decryption tool, then run executable from `bin\` folder.
+3. Run `dotnet add package SkiaSharp` to install `SkiaSharp` from `NuGet`.
+4. Run `dotnet build` to build and execute the decryption tool, then run executable from `bin\` folder.
 
 ## Run
 
@@ -28,6 +29,13 @@ This project is designed to handle the decryption of game data for "Koi to Senky
 ```bash
 # Create <output_dir> before extract
 ./Decrypt -e <dat_file_path> -d <output_dir>
+```
+
+- Combine all CGs
+
+```bash
+# Make sure system.dat, f_graphics.dat and graphics.dat are extracted to same folder.
+./Decrypt -c <output_dir>
 ```
 
 ## Notes
