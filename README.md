@@ -1,5 +1,7 @@
 # Koichoco (恋と選択とチョコレート) extractor
 
+  Notice: New extractor/CG composer for all Sprite game available! See Sprite4SteamExtractor
+
 ## Project Overview
 
 This project is designed to handle the decryption of game data for "Koi to Senkyo to Chocolate" ("Love, Election, and Chocolate"). It includes tools and scripts to help users decrypt and read game files.
