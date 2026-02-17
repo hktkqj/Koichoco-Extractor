@@ -1,6 +1,6 @@
 # Koichoco (恋と選択とチョコレート) extractor
 
-  Notice: New extractor/CG composer for all Sprite game available! See Sprite4SteamExtractor
+***Notice: New extractor/CG composer for all Sprite game available! See [Sprite4SteamExtractor](https://github.com/hktkqj/Sprite4SteamExtractor)***
 
 ## Project Overview
 
